@@ -26,11 +26,3 @@ Monorepo-style layout with:
    cd frontend
    npm run dev
    ```
-
-## Git setup
-Initialize Git at the repo root:
-```bash
-git init
-git add .
-git commit -m "Initial project structure"
-```
