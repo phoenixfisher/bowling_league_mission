@@ -1,54 +1,41 @@
 # Bowling League Mission
 
-Monorepo with a React frontend and ASP.NET Core backend.
+This project shows bowler information from the Bowling League database.
 
-## Project structure
-- `frontend/`: React 19 + TypeScript + Vite 7
-- `backend/`: ASP.NET Core Web API (.NET 10)
-- `backend/backend.sln`: .NET solution file
+It uses:
+- React + TypeScript for the frontend
+- ASP.NET Core with C# for the backend
+- SQLite for the database
 
-## Prerequisites
-- Node.js 22+
-- npm 10+
-- .NET SDK 10.0+
+The app only displays bowlers from the Marlins and Sharks teams.
 
-## Getting started
+## Files
 
-Run all commands from the repository root.
+- `frontend` contains the React app
+- `backend` contains the ASP.NET Core API
+- `db/BowlingLeague.sqlite` is the database file
 
-### Backend
+## How to run it
 
-Start the API:
+Backend:
 ```bash
-dotnet run --project backend/backend/backend.csproj
+cd backend/backend
+dotnet run
 ```
 
-### Frontend
-
-Install dependencies (one-time setup), then start the dev server:
+Frontend:
 ```bash
-npm --prefix frontend install
-npm --prefix frontend run dev
+cd frontend
+npm install
+npm run dev
 ```
 
-## Local URLs
-- Frontend (Vite dev server): `http://localhost:5173`
-- Backend HTTP profile: `http://localhost:5184`
-- Backend HTTPS profile: `https://localhost:7187`
-- OpenAPI document (Development): `http://localhost:5184/openapi/v1.json`
+## What the page shows
 
-## API endpoint included
-- `GET /weatherforecast`
-
-Example request:
-```bash
-curl http://localhost:5184/weatherforecast
-```
-
-## Useful frontend scripts
-From the repository root:
-
-- `npm --prefix frontend run dev`: Start Vite dev server
-- `npm --prefix frontend run build`: Type-check and build production assets
-- `npm --prefix frontend run preview`: Preview production build
-- `npm --prefix frontend run lint`: Run ESLint
+- Bowler name
+- Team name
+- Address
+- City
+- State
+- Zip
+- Phone number
