@@ -1,34 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from 'react'
+import BowlerTable, { type Bowler } from './components/BowlerTable'
+import Heading from './components/Heading'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [bowlers, setBowlers] = useState<Bowler[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    async function loadBowlers() {
+      try {
+        const response = await fetch('/api/bowlers')
+
+        if (!response.ok) {
+          throw new Error('Failed to load bowlers.')
+        }
+
+        const data: Bowler[] = await response.json()
+        setBowlers(data)
+      } catch {
+        setError('Unable to load bowlers right now.')
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    loadBowlers()
+  }, [])
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <main className="container py-4">
+      <Heading />
+      {isLoading ? <div className="alert alert-secondary">Loading bowlers...</div> : null}
+      {error ? <div className="alert alert-danger">{error}</div> : null}
+      {!isLoading && !error ? <BowlerTable bowlers={bowlers} /> : null}
+    </main>
   )
 }
 
